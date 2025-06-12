@@ -1,0 +1,169 @@
+.footer {
+  background-color: #093b0b;
+  padding: 40px 20px;
+  text-align: center;
+  height:390px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-left {
+  width:100%;
+}
+
+.footer-logo {
+  width: 80px;
+  height: auto;
+}
+
+.footer-quote {
+  font-style: italic;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+  /* padding-bottom: 8px; */
+  width: fit-content;
+  margin: 0 auto;
+}
+
+
+.footer-right {
+  display: flex;
+  flex-direction: row;
+  gap: 400px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  text-align: left;
+  min-width: 200px;
+}
+
+.footer-section h3 {
+  margin-bottom: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.footer-section p {
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+}
+.icon {
+  margin-right: 10px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  font-size: 18px;
+}
+
+.footer-section p:hover .icon {
+  transform: scale(1.3);
+}
+
+/* Icon Colors */
+.icon-phone {
+  color: #4CAF50; /* Green for phone */
+}
+
+.icon-mail {
+  color: #FF9800; /* Orange for mail */
+}
+
+.icon-instagram {
+  color: #E4405F; /* Instagram pink */
+}
+
+.icon-twitter {
+  color: #1DA1F2; /* Twitter blue */
+}
+.footer-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.footer-link:hover {
+  transform: scale(1.05);
+}
+
+.footer-divider {
+  border-bottom: 2px solid black;
+  width: 100%;
+  margin: 15px 0;
+}
+.footer-bottom{
+  color: white;
+}/* ------------------------------ */
+/* Mobile Responsive Footer */
+/* ------------------------------ */
+@media (max-width: 768px) {
+  .footer {
+    height: auto;
+    padding: 30px 15px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer-left,
+  .footer-right {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-right {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-section {
+    min-width: unset;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: 60px;
+  }
+
+  .footer-quote {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+
+  .footer-section h3 {
+    font-size: 16px;
+  }
+
+  .footer-section p {
+    font-size: 14px;
+    justify-content: center;
+  }
+
+  .icon {
+    font-size: 16px;
+    margin-right: 6px;
+  }
+
+  .footer-bottom {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  .footer-divider {
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+  }
+
+  
+html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: #e8f5e9;
+  }
+  
+  .about-page {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .photodata {
+    height:300px;
+    display: flex;
+    gap:100px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 100px 40px;
+    border:2px solid black;
+    width:95%;
+    background-color: white;
+    border-radius: 20px;
+  }
+  
+  .photo {
+    height:250px;
+    width:auto;
+    border:2px solid black;
+  }
+  
+  .photo img {
+    height:100%;
+    width: auto;
+  }
+  
+  .data {
+    width: 50%;
+    padding-left: 50px;
+    font-size: 17px;
+  }
+  
+  h2 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 28px;
+    color: #003a0c;
+    text-decoration: underline;
+  }
+  h1{
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: 45%;
+    text-decoration: underline;
+    font-size: 250%;
+  }
+  .ptag {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+  }
+  
+  .reverse {
+    flex-direction: row-reverse;
+  }
+  
+  .feature:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .feature img {
+    border-radius: 50%;
+  }
+  @media (max-width: 768px) {
+  h1 {
+    font-size: 180%;
+    margin-left: 0;
+    text-align: center;
+  }
+
+  .photodata {
+    flex-direction: column !important;
+    height: auto;
+    gap: 20px;
+    margin: 40px 10px;
+    padding: 20px 10px;
+    width: 95%;
+  }
+
+  .photo {
+    height: auto;
+    width: 100%;
+    border: none;
+    text-align: center;
+  }
+
+  .photo img {
+    width: 90%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .data {
+    width: 100%;
+    padding: 0 15px;
+    font-size: 15px;
+    text-align: justify;
+  }
+
+  h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .reverse {
+    flex-direction: column !important;
+  }
+}
