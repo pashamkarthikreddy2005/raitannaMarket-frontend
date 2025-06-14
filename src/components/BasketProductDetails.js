@@ -44,13 +44,13 @@ function BasketProductDetails() {
   return (
     <>
       <div className="basket-product-container">
-        <h1>{basket.title}</h1>
+        <h1 className='basket-head'>{basket.title}</h1>
         <img src={basket.image} alt={basket.title} className="basket-image" />
         <p className="price">
           ₹{basket.price} <span className="original-price">₹{basket.originalPrice}</span>
         </p>
 
-        <h2>What's Inside?</h2>
+        <h2 className='whats-inside'>What's Inside?</h2>
         <div className="basket-items">
           {basket.items.map((item, index) => (
             <div className="basket-item-card" key={index}>

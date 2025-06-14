@@ -7,6 +7,7 @@ import Products from "./components/Products";
 import Login from "./authentication/Login";
 import Register from "./authentication/Register";
 import BasketProductDetails from "./components/BasketProductDetails";
+import Donate from "./components/Donate";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/products/:basketType" element={<BasketProductDetails />} />
+        <Route path="/donate" element={<Donate />} />
       </Routes>
     </BrowserRouter>
   );

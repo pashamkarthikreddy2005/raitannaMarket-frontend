@@ -48,7 +48,7 @@ function Login() {
                 
                 <div className="login-container">
                     {/* <a href="http://localhost:5000/auth/google">Login with Google</a> */}
-                    <h2>Login</h2>
+                    <h2 className='login-head'>Login</h2>
                     <form onSubmit={handleSubmit}>
                         <div>
                             <label>Username:</label>

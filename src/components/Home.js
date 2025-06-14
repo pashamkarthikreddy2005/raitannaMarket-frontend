@@ -129,6 +129,12 @@ function Home() {
           ))}
         </div>
       </div>
+      <div style={{ textAlign: 'center', marginTop: '40px' }}>
+  <button className="donate-now-button" onClick={() => navigate('/donate')}>
+    ❤️ Donate to Feed Children
+  </button>
+</div>
+
 
       <Footer />
     </>

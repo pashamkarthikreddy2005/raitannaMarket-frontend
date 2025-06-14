@@ -246,6 +246,22 @@ body {
   outline: none;
   box-shadow: none;
 }
+.donate-now-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #d81b60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s ease;
+}
+
+.donate-now-button:hover {
+  background-color: #c2185b;
+}
+
 
 @media (max-width: 768px) {
   .slide-text {

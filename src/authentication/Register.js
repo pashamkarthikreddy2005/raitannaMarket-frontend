@@ -79,7 +79,7 @@ function Register() {
         <>
             {loading && <Loader />}
             <div className="register-container">
-                <h2>Register</h2>
+                <h2 className='register-head'>Register</h2>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Username:</label>
