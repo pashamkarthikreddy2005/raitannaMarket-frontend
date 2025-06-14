@@ -18,18 +18,23 @@
   width: 100%;
   padding: 0 1rem;
 }
-
 .logo {
-  font-size: 30px;
-  font-weight: bold;
-  /* padding-right:350px; */
-  margin-top:15px;
-  margin-left:100px;
-  color: #f0e6c3;
   display: flex;
   align-items: center;
   gap: 10px;
+  height: 100%;
+  margin-top: 10px;
+  border-radius: 40px;
 }
+
+.logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 40px;
+
+}
+
 
 .nav-wrapper {
   flex: 1;
@@ -76,28 +81,126 @@
 .nav-link.active::after {
   width: 100%;
 }
+.profile-menu {
+  /* position: relative; */
+  margin-right: 0px;
+  cursor: pointer;
+  margin-top: 20px;
 
-@media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem 0;
-  }
 }
 
+.profile-icon {
+  font-size: 28px;
+  color: white;
+}
+.login-link {
+  padding: 6px 12px;
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  border:3px solid #003a0c;
+  border-radius: 10px;
+}
+
+.login-link:hover {
+  background-color: #003a0c;
+  border:3px solid white;
+  color:white;
+}
+
+.login-button{
+  margin-top: 20px;
+}
+.dropdown {
+  margin-top: 20px;
+  position: absolute;
+  top: 45px;
+  right: 0;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  min-width: 180px;
+  z-index: 1100;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-icon {
+  margin-right: 20px;
+  font-size: 18px;
+  color: black;
+}
+
+
 @media (max-width: 768px) {
+  .navbar {
+  background: #003a0c;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 60px;
+  width: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 58, 12, 0.4);
+  transition: background 0.5s ease;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 100%;
+  margin-top:5px;
+  border-radius: 40px;
+}
+
+.logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 40px;
+
+}
   .navbar-container {
     flex-direction: row;
     /* align-items: flex-start; */
-    gap:20px;
+    gap:10px;
   }
 
-  .logo {
-    margin-left: 0;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
+  .login-button{
+  margin-top: 10px;
+}
+
+  .profile-menu {
+  /* position: relative; */
+  margin-right: 0px;
+  cursor: pointer;
+  margin-top: 10px;
+
+}
+
+
   .nav-wrapper {
     width: 65%;
     justify-content: flex-end;
@@ -116,7 +219,6 @@
     margin-top: 0;
     font-size: 16px;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
 
   .nav-link::after {

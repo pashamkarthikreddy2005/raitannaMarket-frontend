@@ -1,0 +1,40 @@
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    font-weight: bold;
+    position: relative;
+    height: 100vh;
+    margin-top: 60px;
+}
+
+.letter-l {
+    color: black;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    position: relative;
+    font-size: 83px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #002452;
+    position: absolute;
+    left: 50.5%;
+    top: 51%;
+    margin-left: -15px;
+    margin-top: -15px;
+    animation: rotate 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(-450deg) translate(50px) rotate(450deg);
+    }
+    100% {
+        transform: rotate(-90deg) translate(50px) rotate(90deg);
+    }
+}

@@ -1,0 +1,116 @@
+.register-container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border: 2px solid #4caf50;
+    border-radius: 5px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 25px;
+    z-index: 100;
+    position: relative;
+}
+    
+h2 {
+    text-align: center;
+    margin: 0;
+    color: #161716;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #388e3c;
+}
+
+.loginok, #loginuser {
+    width: 93%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #388e3c;
+    border-radius: 5px;
+    background-color: #e8f5e9;
+    color: black;
+}
+
+.loginok:focus, #loginuser:focus {
+    border-color: #2e7d32;
+    outline: none;
+}
+.login-redirect {
+  margin-top: 1rem;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.login-redirect a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-redirect a:hover {
+  text-decoration: underline;
+}
+
+
+.submit-register {
+    width: 94%;
+    padding: 10px;
+    background-color: #388e3c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-register:hover {
+    background-color: #2e7d32;
+}
+
+.response-message {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.success {
+    color: green;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.small-footerr {
+    position: relative;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    margin-top: -189px;
+    z-index: 0;
+}
+
+.small-footerr-content {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.small-footerr-svg {
+    width: 100%;
+    height: auto; 
+    display: block; 
+}
+@media (max-width: 768px) {
+  .small-footerr {
+    display: none;
+  }
+}

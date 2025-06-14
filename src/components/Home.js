@@ -59,10 +59,10 @@ function Home() {
           <h2>{slides[currentIndex].text}</h2>
         </div>
 
-        <button className="prev" onClick={prevSlide}>
+        <button className="prev-arrow" onClick={prevSlide}>
           <img src="left.png" alt="Previous" className="arrow-icon" />
         </button>
-        <button className="next" onClick={nextSlide}>
+        <button className="next-arrow" onClick={nextSlide}>
           <img src="right.png" alt="Next" className="arrow-icon" />
         </button>
       </div>

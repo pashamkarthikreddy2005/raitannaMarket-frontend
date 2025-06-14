@@ -234,3 +234,10 @@
   }
 }
 
+.my-custom-toast {
+  background-color: green !important; /* Custom blue */
+  color: #fff !important;               /* Text color */
+  border-radius: 8px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+}

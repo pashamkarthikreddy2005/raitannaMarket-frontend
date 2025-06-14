@@ -34,8 +34,8 @@ body {
   height: 30px;
 }
 
-.prev,
-.next {
+.prev-arrow,
+.next-arrow{
   background: transparent;
   border: none;
   cursor: pointer;
@@ -45,11 +45,11 @@ body {
   z-index: 2;
 }
 
-.prev {
+.prev-arrow {
   left: 10px;
 }
 
-.next {
+.next-arrow {
   right: 10px;
 }
 
