@@ -8,6 +8,9 @@ import Login from "./authentication/Login";
 import Register from "./authentication/Register";
 import BasketProductDetails from "./components/BasketProductDetails";
 import Donate from "./components/Donate";
+import AdminProducts from "./components/AdminProducts";
+import ProductForm from "./components/ProductForm";
+
 
 function App() {
   return (
@@ -16,11 +19,14 @@ function App() {
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/products/:basketType" element={<BasketProductDetails />} />
         <Route path="/donate" element={<Donate />} />
+        <Route path="/admin/products" element={<AdminProducts />}/>
+        <Route path="/product/form" element={<ProductForm />}/>
       </Routes>
     </BrowserRouter>
   );

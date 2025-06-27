@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import {
   FaUserCircle,
@@ -8,14 +9,16 @@ import {
   FaUserEdit,
   FaSignOutAlt,
 } from 'react-icons/fa';
+import UserService from './service/UserService';
 
 function Navbar() {
+  const navigate = useNavigate();
   const location = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const isAuthenticated = true;
-  const isUser = true;
+  const isAuthenticated = UserService.isAuthenticated();
+  const isUser = UserService.isUser();
 
   const userNavLinks = [
     { name: 'Home', path: '/' },
@@ -98,10 +101,17 @@ function Navbar() {
                   <FaUserEdit className="dropdown-icon" />
                   My Details
                 </Link>
-                <Link to="/logout" className="dropdown-item">
+                <div
+                  className="dropdown-item"
+                  onClick={() => {
+                    UserService.logout();
+                    navigate('/login');
+                  }}
+                >
                   <FaSignOutAlt className="dropdown-icon" />
                   Logout
-                </Link>
+                </div>
+
               </div>
             )}
           </div>

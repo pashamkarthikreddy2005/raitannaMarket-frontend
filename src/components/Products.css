@@ -241,3 +241,16 @@
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
 }
+.add-product-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.add-product-button:hover {
+  background-color: #218838;
+}
