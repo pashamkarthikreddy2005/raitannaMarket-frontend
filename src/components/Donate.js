@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Donate.css';
 import Footer from './Footer';
 
@@ -8,6 +8,10 @@ function Donate() {
   const [email, setEmail] = useState('');
   const [occasion, setOccasion] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleDonate = () => {
     if (!amount || !email) {
@@ -59,26 +63,34 @@ function Donate() {
 
         <div className="donation-form">
           <input
-  type="text"
-  placeholder="Donate in the name of"
-  value={name}
-  onChange={(e) => setName(e.target.value)}
-  required
-/>
+            type="text"
+            placeholder="Donate in the name of"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-<input
-  type="text"
-  placeholder="Occasion (e.g., Birthday, Anniversary)"
-  value={occasion}
-  onChange={(e) => setOccasion(e.target.value)}
-  required
-/>
+          <input
+            type="text"
+            placeholder="Occasion (e.g., Birthday, Anniversary)"
+            value={occasion}
+            onChange={(e) => setOccasion(e.target.value)}
+            required
+          />
+
+          <input
+            type="email"
+            placeholder="Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
           <button className="donate-button" onClick={handleDonate}>Donate Now</button>
 
           <p className="donate-note">
-  📩 A thank-you video link will be sent to your <strong>registered email</strong> and <strong>phone number</strong>.
-</p>
-
+            📩 A thank-you video link will be sent to your <strong>registered email</strong> and <strong>phone number</strong>.
+          </p>
         </div>
       </div>
 

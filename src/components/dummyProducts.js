@@ -40,7 +40,7 @@ export const dummyProducts = [
     name: "Paneer",
     description: "Fresh homemade paneer",
     price: 90,
-    category: "Milk Products",
+    category: "MilkProducts",
     stockQuantity: 18,
     image: "https://imgs.search.brave.com/ci6DJ4Ht4f9HYVxUNog4t_lA46Om17B8nDFgvH_qAWU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vSS1tcVVT/ekZnTkoteTZCTy0y/MHJJbHk5djRSSFgy/WW1pN2lNWEJPaVNB/ay9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTl0/WldScC9ZUzVuWlhS/MGVXbHRZV2RsL2N5/NWpiMjB2YVdRdk1U/RTUvTVRVM016UXdO/Uzl3YUc5MC9ieTlt/YjI5a0xXaGxjbUp6/L0xXaGxZV3gwYUMx/b1pYSmkvWVd3dGJX/VmthV05wYm1VdS9h/bkJuUDNNOU5qRXll/RFl4L01pWjNQVEFt/YXoweU1DWmovUFha/VGFHWlhkbkZ2U0Va/TS9TVk5wU1haNlFq/WnVjMDFNL0xVTnlX/a0puYkhOZmEwMXMv/TFV0eWJXUnVSMVU5"
   },
@@ -49,7 +49,7 @@ export const dummyProducts = [
     name: "Ghee",
     description: "Aromatic desi cow ghee",
     price: 250,
-    category: "Milk Products",
+    category: "MilkProducts",
     stockQuantity: 10,
     image: "https://imgs.search.brave.com/tlaHxjjT0f76EOPCfxfzAy-8AFgFj_1kUSsg-YVVYtA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vSkZmWEhO/b3g3RkpMTlh1WlZ4/ZW0zYU9RTUJBYWJY/UVI3SFBJNGttUTIt/OC9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTl0/WldScC9ZUzVwYzNS/dlkydHdhRzkwL2J5/NWpiMjB2YVdRdk9E/SXcvTnpRNU5EYzRM/M0JvYjNSdi9MMmRv/WldVdFluVjBkR1Z5/L0xtcHdaejl6UFRZ/eE1uZzIvTVRJbWR6/MHdKbXM5TWpBbS9Z/ejFmWjAxaGVuQmpT/MDR6L05UQmtOR1pV/V1VaMWQxbGgvZFRs/UFdHRmlaM2QxYWtk/SS9aVzB0WTNOalox/bEpQUQ"
   },

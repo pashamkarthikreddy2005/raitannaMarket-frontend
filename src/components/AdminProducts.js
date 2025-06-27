@@ -3,21 +3,10 @@ import axios from 'axios';
 import './Products.css';
 import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
-function Products() {
-  const location = useLocation();
-
-  const notify = (product) => {
-    toast.success(`🛒 ${product.productName} added to cart!`, {
-      position: "top-right",
-      autoClose: 2000,
-      className: "my-custom-toast",
-      progressClassName: "toast-progress",
-    });
-  };
-
+function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState(0);
@@ -29,25 +18,11 @@ function Products() {
     pickles: true
   });
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     fetchProducts();
   }, []);
-  
-  useEffect(() => {
-    if (location.state && location.state.selectedCategory) {
-      const category = location.state.selectedCategory.toLowerCase();
-      setSelectedCategories(prev => ({
-        ...Object.fromEntries(Object.keys(prev).map(key => [key, false])),
-        [category]: true
-      }));
-    }
-  }, [location.state]);
-  
 
   const getAuthConfig = () => {
     const token = localStorage.getItem('token');
@@ -69,22 +44,23 @@ function Products() {
     }
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
   const handlePriceChange = (e) => {
     const { name, value } = e.target;
     if (name === 'minPrice') setMinPrice(Number(value));
     if (name === 'maxPrice') setMaxPrice(Number(value));
   };
-
   const handleCategoryChange = (e) => {
     const { name, checked } = e.target;
-    setSelectedCategories(prev => ({
-      ...prev,
-      [name]: checked
-    }));
+    setSelectedCategories(prev => ({ ...prev, [name]: checked }));
+  };
+
+  const handleAddClick = () => {
+    navigate('/product/form', { state: null });
+  };
+
+  const handleUpdateClick = (product) => {
+    navigate('/product/form', { state: { initialValues: product } });
   };
 
   const getDiscountedPrice = (price, discount) => {
@@ -96,9 +72,9 @@ function Products() {
     const isCategoryMatch =
       selectedCategories[categoryKey] ||
       Object.values(selectedCategories).every(val => !val);
-
+  
     const discountedPrice = getDiscountedPrice(product.price, product.discount);
-
+  
     return (
       product.productName.toLowerCase().includes(searchQuery.toLowerCase()) &&
       isCategoryMatch &&
@@ -110,7 +86,11 @@ function Products() {
   return (
     <>
       <div className="products-container">
-        <h2>All Products</h2>
+        <h2>Admin - Manage Products</h2>
+
+        <button className="add-product-button" onClick={handleAddClick}>
+          ➕ Add New Product
+        </button>
 
         <div className="filter-section">
           <div className="searchnoption">
@@ -189,15 +169,9 @@ function Products() {
                 <div className="product-buttons">
                   <button
                     className="cart-button"
-                    onClick={() => notify(product)}
+                    onClick={() => handleUpdateClick(product)}
                   >
-                    Add to Cart
-                  </button>
-                  <button
-                    className="buy-button"
-                    onClick={() => alert(`Ordered ${product.productName}`)}
-                  >
-                    Order Now
+                    ✏️ Update Product
                   </button>
                 </div>
               </div>
@@ -214,4 +188,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default AdminProducts;

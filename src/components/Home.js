@@ -14,6 +14,10 @@ function Home() {
   const [isFading, setIsFading] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const changeSlide = (newIndex) => {
     setIsFading(true);
     setTimeout(() => {
@@ -21,7 +25,6 @@ function Home() {
       setIsFading(false);
     }, 300);
   };
-
   const prevSlide = () => {
     const newIndex = (currentIndex - 1 + slides.length) % slides.length;
     changeSlide(newIndex);
@@ -110,7 +113,12 @@ function Home() {
           <div className="category-card available">
             <img src="vegetables.webp" alt="Vegetables" className="category-image" />
             <h3>Vegetables</h3>
-            <button className="buy-now-button">Buy Now</button>
+            <button
+                className="buy-now-button"
+                onClick={() => navigate('/products', { state: { selectedCategory: 'vegetables' } })}
+              >
+                Buy Now
+            </button>
           </div>
 
           {[
