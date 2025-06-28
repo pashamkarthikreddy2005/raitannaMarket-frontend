@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UserService from './service/UserService'; // adjust path if needed
 
 const slides = [
   { image: 'img2.png', text: 'Fresh Veggies Delivered Daily!' },
@@ -12,11 +16,27 @@ const slides = [
 function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [baskets, setBaskets] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchBaskets();
   }, []);
+
+  const fetchBaskets = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/public/baskets/summary', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setBaskets(response.data);
+    } catch (error) {
+      console.error('Error fetching basket summary:', error);
+      toast.error('❌ Failed to fetch baskets.');
+    }
+  };
 
   const changeSlide = (newIndex) => {
     setIsFading(true);
@@ -25,6 +45,7 @@ function Home() {
       setIsFading(false);
     }, 300);
   };
+
   const prevSlide = () => {
     const newIndex = (currentIndex - 1 + slides.length) % slides.length;
     changeSlide(newIndex);
@@ -42,8 +63,44 @@ function Home() {
     return () => clearInterval(interval);
   }, [currentIndex]);
 
+  const getBasketByName = (name) => {
+    return baskets.find(basket => basket.name?.toLowerCase() === name.toLowerCase());
+  };
+
+  const maxBasket = getBasketByName('Big') || {};
+  const miniBasket = getBasketByName('Mini') || {};
+
+  const renderBasketPrice = (basket) => {
+    if (!basket.price) return null;
+    const discountedPrice = basket.price - (basket.price * (basket.discount || 0)) / 100;
+    return (
+      <>
+        ₹{discountedPrice.toFixed(2)}{' '}
+        {basket.discount > 0 && (
+          <span className="discount">₹{basket.price}</span>
+        )}
+      </>
+    );
+  };
+
+  const handleShowMore = (path) => {
+    if (UserService.isAuthenticated()) {
+      navigate(path);
+    } else {
+      toast.info('🔒 Please login to view this basket.', {
+        position: 'top-right',
+        autoClose: 2000,
+        className: 'my-custom-toast',
+        progressClassName: 'toast-progress',
+        style: { marginTop: '60px' } 
+      });
+    }
+  };
+
   return (
     <>
+      <ToastContainer />
+      
       <div className="slideshow-container">
         <img
           src={slides[currentIndex].image}
@@ -51,14 +108,13 @@ function Home() {
           className={`slide-image ${isFading ? 'fade-out' : 'fade-in'}`}
         />
         <div
-            className={`slide-text ${isFading ? 'fade-out' : 'fade-in'} ${
-              ['img2.png', 'img4.png'].includes(slides[currentIndex].image) ? 'multi-line-text' : ''
-            } ${slides[currentIndex].image === 'img1.png' ? 'img1-text' : ''}`}
-            style={{
-              left: slides[currentIndex].image === 'img1.png' ? '50%' : '25%',
-            }}
-          >
-
+          className={`slide-text ${isFading ? 'fade-out' : 'fade-in'} ${
+            ['img2.png', 'img4.png'].includes(slides[currentIndex].image) ? 'multi-line-text' : ''
+          } ${slides[currentIndex].image === 'img1.png' ? 'img1-text' : ''}`}
+          style={{
+            left: slides[currentIndex].image === 'img1.png' ? '50%' : '25%',
+          }}
+        >
           <h2>{slides[currentIndex].text}</h2>
         </div>
 
@@ -75,15 +131,15 @@ function Home() {
         <div className="plans-container">
           <div className="plan-card">
             <div className="plan-image-wrapper">
-              <img src="large.webp" alt="Max Basket" className="plan-image" />
+              <img src={maxBasket.imageUrl || 'large.webp'} alt="Max Basket" className="plan-image" />
             </div>
-            <h3>Max Basket</h3>
+            <h3>{maxBasket.name || 'Max Basket'}</h3>
             <p className="price">
-              ₹799 <span className="discount">₹999</span>
+              {renderBasketPrice(maxBasket)}
             </p>
             <button
               className="show-more-button"
-              onClick={() => navigate('/products/max-basket')}
+              onClick={() => handleShowMore('/products/max-basket')}
             >
               Show More
             </button>
@@ -91,15 +147,15 @@ function Home() {
 
           <div className="plan-card">
             <div className="plan-image-wrapper">
-              <img src="small.jpg" alt="Mini Basket" className="plan-image" />
+              <img src={miniBasket.imageUrl || 'small.jpg'} alt="Mini Basket" className="plan-image" />
             </div>
-            <h3>Mini Basket</h3>
+            <h3>{miniBasket.name || 'Mini Basket'}</h3>
             <p className="price">
-              ₹399 <span className="discount">₹499</span>
+              {renderBasketPrice(miniBasket)}
             </p>
             <button
               className="show-more-button"
-              onClick={() => navigate('/products/mini-basket')}
+              onClick={() => handleShowMore('/products/mini-basket')}
             >
               Show More
             </button>
@@ -114,10 +170,10 @@ function Home() {
             <img src="vegetables.webp" alt="Vegetables" className="category-image" />
             <h3>Vegetables</h3>
             <button
-                className="buy-now-button"
-                onClick={() => navigate('/products', { state: { selectedCategory: 'vegetables' } })}
-              >
-                Buy Now
+              className="buy-now-button"
+              onClick={() => navigate('/products', { state: { selectedCategory: 'vegetables' } })}
+            >
+              Buy Now
             </button>
           </div>
 
@@ -137,12 +193,12 @@ function Home() {
           ))}
         </div>
       </div>
-      <div style={{ textAlign: 'center', marginTop: '40px' }}>
-  <button className="donate-now-button" onClick={() => navigate('/donate')}>
-    ❤️ Donate to Feed Children
-  </button>
-</div>
 
+      <div style={{ textAlign: 'center', marginTop: '40px' }}>
+        <button className="donate-now-button" onClick={() => navigate('/donate')}>
+          ❤️ Donate to Feed Children
+        </button>
+      </div>
 
       <Footer />
     </>

@@ -1,0 +1,23 @@
+.cart-summary {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.cart-summary h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.cart-summary .buy-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.cart-summary .buy-button:hover {
+  background-color: #218838;
+}

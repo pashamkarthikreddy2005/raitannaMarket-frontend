@@ -27,7 +27,7 @@ function Navbar() {
   ];
 
   const adminNavLinks = [
-    { name: 'Dashboard', path: '/admin/dashboard' },
+    { name: 'Baskets', path: '/admin/baskets' },
     { name: 'Products', path: '/admin/products' },
     { name: 'Orders', path: '/admin/orders' },
   ];
@@ -87,7 +87,7 @@ function Navbar() {
               <div className="dropdown" onMouseLeave={closeDropdown}>
                 {isUser && (
                   <>
-                    <Link to="/cart" className="dropdown-item">
+                    <Link to="/user/cart" className="dropdown-item">
                       <FaShoppingCart className="dropdown-icon" />
                       Cart
                     </Link>
@@ -97,7 +97,7 @@ function Navbar() {
                     </Link>
                   </>
                 )}
-                <Link to="/profile" className="dropdown-item">
+                <Link to="/user/profile" className="dropdown-item">
                   <FaUserEdit className="dropdown-icon" />
                   My Details
                 </Link>

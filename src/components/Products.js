@@ -5,19 +5,10 @@ import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import UserService from './service/UserService';
 
 function Products() {
   const location = useLocation();
-
-  const notify = (product) => {
-    toast.success(`🛒 ${product.productName} added to cart!`, {
-      position: "top-right",
-      autoClose: 2000,
-      className: "my-custom-toast",
-      progressClassName: "toast-progress",
-    });
-  };
-
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState(0);
@@ -30,14 +21,18 @@ function Products() {
   });
 
   useEffect(() => {
-    fetchProducts();
+    if (UserService.isAuthenticated()) {
+      fetchProducts();
+    }
   }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetchProducts();
+    if (UserService.isAuthenticated()) {
+      fetchProducts();
+    }
   }, []);
-  
+
   useEffect(() => {
     if (location.state && location.state.selectedCategory) {
       const category = location.state.selectedCategory.toLowerCase();
@@ -47,7 +42,6 @@ function Products() {
       }));
     }
   }, [location.state]);
-  
 
   const getAuthConfig = () => {
     const token = localStorage.getItem('token');
@@ -106,6 +100,48 @@ function Products() {
       discountedPrice <= maxPrice
     );
   });
+
+const handleAddToCart = async (productId, productName) => {
+  try {
+    await axios.post(
+      `http://localhost:8080/user/cart/${productId}`,
+      {}, // no body, productId is in path
+      getAuthConfig()
+    );
+    toast.success(`🛒 ${productName} added to cart!`, {
+      position: "top-right",
+      autoClose: 2000,
+      className: "my-custom-toast",
+      progressClassName: "toast-progress",
+      style: { marginTop: '60px' } 
+    });
+  } catch (error) {
+    if (error.response && error.response.status === 409) {
+      toast.warn(`⚠️ ${productName} is already in the cart.`, {
+        position: "top-right",
+        autoClose: 2000,
+        style: { backgroundColor: 'yellow', color: 'black', fontWeight: 'bold', marginTop: '60px' }
+      });
+    } else {
+      console.error("Error adding to cart:", error);
+      toast.error(`❌ Failed to add ${productName} to cart.`);
+    }
+  }
+};
+
+  if (!UserService.isAuthenticated()) {
+    return (
+      <>
+        <div className="products-container">
+          <h2>All Products</h2>
+          <p className='loginMessage'>
+            Please <a href="/login">login</a> or <a href="/register">register</a> to view the products.
+          </p>
+        </div>
+      <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -189,10 +225,11 @@ function Products() {
                 <div className="product-buttons">
                   <button
                     className="cart-button"
-                    onClick={() => notify(product)}
+                    onClick={() => handleAddToCart(product.id, product.productName)}
                   >
                     Add to Cart
-                  </button>
+                </button>
+
                   <button
                     className="buy-button"
                     onClick={() => alert(`Ordered ${product.productName}`)}

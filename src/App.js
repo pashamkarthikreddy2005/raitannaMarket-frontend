@@ -10,6 +10,11 @@ import BasketProductDetails from "./components/BasketProductDetails";
 import Donate from "./components/Donate";
 import AdminProducts from "./components/AdminProducts";
 import ProductForm from "./components/ProductForm";
+import Cart from "./components/Cart";
+import Profile from "./components/Profile";
+import AdminBaskets from "./components/AdminBaskets";
+import AddBasket from "./components/AddBasket";
+import UpdateBasket from "./components/UpdateBasket";
 
 
 function App() {
@@ -27,6 +32,11 @@ function App() {
         <Route path="/donate" element={<Donate />} />
         <Route path="/admin/products" element={<AdminProducts />}/>
         <Route path="/product/form" element={<ProductForm />}/>
+        <Route path="/user/cart" element={<Cart />}/>
+        <Route path="/user/profile" element={<Profile />}/>
+        <Route path="/admin/baskets" element={<AdminBaskets />}/>
+        <Route path="/admin/basket/add/form" element={<AddBasket />}/>
+        <Route path="/admin/basket/update/:id" element={<UpdateBasket />} />
       </Routes>
     </BrowserRouter>
   );

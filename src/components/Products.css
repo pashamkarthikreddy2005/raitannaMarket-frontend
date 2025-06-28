@@ -254,3 +254,6 @@
 .add-product-button:hover {
   background-color: #218838;
 }
+.loginMessage{
+  margin-bottom: 120px;
+}
