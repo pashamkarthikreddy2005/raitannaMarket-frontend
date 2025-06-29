@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+const apiBaseUrl = UserService.getBaseUrl();
+
 const PaymentService = {
   getAuthConfig: () => {
     const token = localStorage.getItem('token');
@@ -21,7 +23,7 @@ const PaymentService = {
       };
 
       const response = await axios.post(
-        'http://localhost:8080/user/payment/order',
+        `${apiBaseUrl}/user/payment/order`,
         paymentRequest,
         PaymentService.getAuthConfig()
       );

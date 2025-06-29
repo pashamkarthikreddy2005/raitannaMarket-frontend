@@ -36,7 +36,8 @@ function AdminProducts() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/public/product', getAuthConfig());
+      const apiBaseUrl = UserService.getBaseUrl();
+      const response = await axios.get(`${apiBaseUrl}/public/product`, getAuthConfig());
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);

@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 const CATEGORY_OPTIONS = ['Vegetables', 'Spices', 'MilkProducts', 'Pickles'];
 
 const ProductForm = () => {
+  const apiBaseUrl = UserService.getBaseUrl();
+  
   const location = useLocation();
   const navigate = useNavigate();
   const initialValues = location.state?.initialValues;
@@ -72,7 +74,7 @@ const ProductForm = () => {
     discount: parseInt(rest.discount)
   };
   try {
-    const res = await axios.post('http://localhost:8080/admin/product', newProduct, getAuthConfig());
+    const res = await axios.post(`${apiBaseUrl}/admin/product`, newProduct, getAuthConfig());
     toast.success(`✅ ${res.data.productName} added successfully!`);
     navigate('/admin/products');
   } catch (error) {
@@ -89,7 +91,7 @@ const ProductForm = () => {
       discount: parseInt(product.discount)
     };
     try {
-      const res = await axios.put('http://localhost:8080/admin/product', updatedProduct, getAuthConfig());
+      const res = await axios.put(`${apiBaseUrl}/admin/product`, updatedProduct, getAuthConfig());
       toast.success(`✅ ${res.data.productName} updated successfully!`);
       navigate('/admin/products');
     } catch (error) {

@@ -6,6 +6,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function UpdateBasket() {
+  const apiBaseUrl = UserService.getBaseUrl();
+
   const [basketSize, setBasketSize] = useState('Mini');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -35,7 +37,7 @@ function UpdateBasket() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/public/product', getAuthConfig());
+      const response = await axios.get(`${apiBaseUrl}/public/product`, getAuthConfig());
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -45,7 +47,7 @@ function UpdateBasket() {
 
   const fetchBasketDetails = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:8080/public/basket/${id}`, getAuthConfig());
+      const response = await axios.get(`${apiBaseUrl}/public/basket/${id}`, getAuthConfig());
       const basket = response.data;
       setBasketSize(basket.basketSize);
       setPrice(basket.price);
@@ -82,7 +84,7 @@ function UpdateBasket() {
     };
 
     try {
-      await axios.put(`http://localhost:8080/admin/basket/${id}`, payload, getAuthConfig());
+      await axios.put(`${apiBaseUrl}/admin/basket/${id}`, payload, getAuthConfig());
       toast.success('✅ Basket updated successfully');
       setTimeout(() => navigate('/admin/baskets'), 2000);
     } catch (error) {

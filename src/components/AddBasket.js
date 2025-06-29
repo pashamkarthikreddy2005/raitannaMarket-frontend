@@ -33,7 +33,8 @@ function AddBasket() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/public/product', getAuthConfig());
+      const apiBaseUrl = UserService.getBaseUrl();
+      const response = await axios.get(`${apiBaseUrl}/public/product`, getAuthConfig());
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -69,7 +70,8 @@ function AddBasket() {
 
 
     try {
-      await axios.post('http://localhost:8080/admin/basket', payload, getAuthConfig());
+      const apiBaseUrl = UserService.getBaseUrl();
+      await axios.post(`${apiBaseUrl}/admin/basket`, payload, getAuthConfig());
       toast.success('✅ Basket added successfully');
       setTimeout(() => navigate('/admin/baskets'), 2000);
     } catch (error) {

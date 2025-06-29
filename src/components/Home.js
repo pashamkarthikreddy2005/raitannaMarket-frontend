@@ -26,7 +26,7 @@ function Home() {
 
   const fetchBaskets = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/public/baskets/summary', {
+      const response = await axios.get(`${apiBaseUrl}/public/baskets/summary`, {
         headers: {
           'Content-Type': 'application/json',
         },

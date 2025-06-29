@@ -25,7 +25,8 @@ function AdminBaskets() {
 
   const fetchBaskets = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/public/baskets/summary', getAuthConfig());
+      const apiBaseUrl = UserService.getBaseUrl();
+      const response = await axios.get(`${apiBaseUrl}/public/baskets/summary`, getAuthConfig());
       console.log(response.data);
       setBaskets(response.data);
     } catch (error) {
@@ -57,7 +58,8 @@ function AdminBaskets() {
 
   const confirmDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/admin/basket/${id}`, getAuthConfig());
+      const apiBaseUrl = UserService.getBaseUrl();
+      await axios.delete(`${apiBaseUrl}/admin/basket/${id}`, getAuthConfig());
       toast.dismiss();
       toast.success('✅ Basket deleted successfully');
       fetchBaskets();

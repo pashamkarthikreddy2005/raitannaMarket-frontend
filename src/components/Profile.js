@@ -6,6 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Profile() {
+  const apiBaseUrl = UserService.getBaseUrl();
+
   const [user, setUser] = useState(null);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [address, setAddress] = useState({
@@ -33,7 +35,7 @@ function Profile() {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/user/my-details', getAuthConfig());
+      const response = await axios.get(`${apiBaseUrl}/user/my-details`, getAuthConfig());
       setUser(response.data);
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -52,7 +54,7 @@ function Profile() {
   const handleAddressSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/user/add-address', address, getAuthConfig());
+      await axios.post(`${apiBaseUrl}/user/add-address`, address, getAuthConfig());
       toast.success("✅ Address added successfully!");
       setShowAddressForm(false);
       setAddress({ street: '', city: '', state: '', zipCode: '' });

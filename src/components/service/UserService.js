@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class UserService {
-    static BASE_URL = "http://localhost:8080";
+    static BASE_URL = process.env.BACKEND_URL;
 
     static async register(userData) {
         try {
@@ -81,6 +81,9 @@ class UserService {
     static isOrganization() {
         const role = localStorage.getItem('role');
         return role === 'ORGANIZATION';
+    }
+    static getBaseUrl() {
+        return this.BASE_URL;
     }
 
     static getEmail() {

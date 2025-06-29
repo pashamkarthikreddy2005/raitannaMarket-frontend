@@ -8,6 +8,9 @@ import UserService from './service/UserService';
 import PaymentService from './service/PaymentService';
 
 function Cart() {
+
+  const apiBaseUrl = UserService.getBaseUrl();
+
   const [cart, setCart] = useState(null);
 
   useEffect(() => {
@@ -28,7 +31,8 @@ function Cart() {
 
   const fetchCart = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/user/cart', getAuthConfig());
+      const apiBaseUrl = UserService.getBaseUrl();
+      const response = await axios.get(`${apiBaseUrl}/user/cart`, getAuthConfig());
       setCart(response.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -38,7 +42,7 @@ function Cart() {
 
   const handleRemove = async (productId) => {
     try {
-      await axios.delete(`http://localhost:8080/user/cart/${productId}`, getAuthConfig());
+      await axios.delete(`${apiBaseUrl}/user/cart/${productId}`, getAuthConfig());
       toast.success("🗑️ Item removed from cart!", { style: { marginTop: '60px' } });
       fetchCart();
     } catch (error) {
@@ -51,7 +55,7 @@ function Cart() {
     PaymentService.createAndOpenPayment(productName, price, (paymentResp) => {
       // Call backend to create order
       axios.post(
-        `http://localhost:8080/user/order/product/${productId}`,
+        `${apiBaseUrl}/user/order/product/${productId}`,
         null,
         {
           params: {
@@ -75,7 +79,7 @@ function Cart() {
     PaymentService.createAndOpenPayment("Cart Purchase", totalAmount, (paymentResp) => {
       // Call backend to create combined cart order
       axios.post(
-        `http://localhost:8080/user/order/cart`,
+        `${apiBaseUrl}/user/order/cart`,
         null,
         {
           params: {

@@ -9,6 +9,8 @@ import UserService from './service/UserService';
 import PaymentService from './service/PaymentService';
 
 function Products() {
+  const apiBaseUrl = UserService.getBaseUrl();
+
   const location = useLocation();
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -56,7 +58,7 @@ function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/public/product', getAuthConfig());
+      const response = await axios.get(`${apiBaseUrl}/public/product`, getAuthConfig());
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -105,7 +107,7 @@ function Products() {
   const handleAddToCart = async (productId, productName) => {
     try {
       await axios.post(
-        `http://localhost:8080/user/cart/${productId}`,
+        `${apiBaseUrl}/user/cart/${productId}`,
         {},
         getAuthConfig()
       );
@@ -131,7 +133,7 @@ function Products() {
   const handleOrderNow = (productId, productName, price) => {
     PaymentService.createAndOpenPayment(productName, price, (paymentResp) => {
       axios.post(
-        `http://localhost:8080/user/order/product/${productId}`,
+        `${apiBaseUrl}/user/order/product/${productId}`,
         null,
         {
           params: {
