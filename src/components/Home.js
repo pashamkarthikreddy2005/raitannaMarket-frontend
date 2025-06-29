@@ -15,7 +15,7 @@ const slides = [
 
 function Home() {
   const apiBaseUrl = UserService.getBaseUrl();
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [baskets, setBaskets] = useState([]);
@@ -27,18 +27,26 @@ function Home() {
   }, []);
 
   const fetchBaskets = async () => {
-    try {
-      const response = await axios.get(`${apiBaseUrl}/public/baskets/summary`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      setBaskets(response.data);
-    } catch (error) {
-      console.error('Error fetching basket summary:', error);
-      toast.error('❌ Failed to fetch baskets.');
+  try {
+    const response = await axios.get(`${apiBaseUrl}/public/baskets/summary`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = response.data;
+    if (Array.isArray(data)) {
+      setBaskets(data);
+    } else {
+      console.warn("Expected array, got:", data);
+      setBaskets([]); // or handle accordingly
     }
-  };
+  } catch (error) {
+    console.error('Error fetching basket summary:', error);
+    toast.error('❌ Failed to fetch baskets.');
+  }
+};
+
 
   const changeSlide = (newIndex) => {
     setIsFading(true);
@@ -66,8 +74,10 @@ function Home() {
   }, [currentIndex]);
 
   const getBasketByName = (name) => {
-    return baskets.find(basket => basket.name?.toLowerCase() === name.toLowerCase());
-  };
+  if (!Array.isArray(baskets)) return {};
+  return baskets.find(basket => basket.name?.toLowerCase() === name.toLowerCase()) || {};
+};
+
 
   const maxBasket = getBasketByName('Big') || {};
   const miniBasket = getBasketByName('Mini') || {};
