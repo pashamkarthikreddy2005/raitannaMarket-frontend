@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useLocation } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import UserService from './service/UserService';
+import PaymentService from './service/PaymentService';
 
 function Products() {
   const location = useLocation();
@@ -101,33 +102,52 @@ function Products() {
     );
   });
 
-const handleAddToCart = async (productId, productName) => {
-  try {
-    await axios.post(
-      `http://localhost:8080/user/cart/${productId}`,
-      {}, // no body, productId is in path
-      getAuthConfig()
-    );
-    toast.success(`🛒 ${productName} added to cart!`, {
-      position: "top-right",
-      autoClose: 2000,
-      className: "my-custom-toast",
-      progressClassName: "toast-progress",
-      style: { marginTop: '60px' } 
-    });
-  } catch (error) {
-    if (error.response && error.response.status === 409) {
-      toast.warn(`⚠️ ${productName} is already in the cart.`, {
+  const handleAddToCart = async (productId, productName) => {
+    try {
+      await axios.post(
+        `http://localhost:8080/user/cart/${productId}`,
+        {},
+        getAuthConfig()
+      );
+      toast.success(`🛒 ${productName} added to cart!`, {
         position: "top-right",
         autoClose: 2000,
-        style: { backgroundColor: 'yellow', color: 'black', fontWeight: 'bold', marginTop: '60px' }
+        style: { marginTop: '60px' }
       });
-    } else {
-      console.error("Error adding to cart:", error);
-      toast.error(`❌ Failed to add ${productName} to cart.`);
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.warn(`⚠️ ${productName} is already in the cart.`, {
+          position: "top-right",
+          autoClose: 2000,
+          style: { backgroundColor: 'yellow', color: 'black', fontWeight: 'bold', marginTop: '60px' }
+        });
+      } else {
+        console.error("Error adding to cart:", error);
+        toast.error(`❌ Failed to add ${productName} to cart.`);
+      }
     }
-  }
-};
+  };
+
+  const handleOrderNow = (productId, productName, price) => {
+    PaymentService.createAndOpenPayment(productName, price, (paymentResp) => {
+      axios.post(
+        `http://localhost:8080/user/order/product/${productId}`,
+        null,
+        {
+          params: {
+            razorpayPaymentId: paymentResp.razorpay_payment_id,
+            razorpayOrderId: paymentResp.razorpay_order_id
+          },
+          ...getAuthConfig()
+        }
+      ).then(() => {
+        toast.success("✅ Order created on server!");
+      }).catch((err) => {
+        console.error("Error saving order to server:", err);
+        toast.error("❌ Failed to save order to server.");
+      });
+    });
+  };
 
   if (!UserService.isAuthenticated()) {
     return (
@@ -138,7 +158,7 @@ const handleAddToCart = async (productId, productName) => {
             Please <a href="/login">login</a> or <a href="/register">register</a> to view the products.
           </p>
         </div>
-      <Footer />
+        <Footer />
       </>
     );
   }
@@ -228,11 +248,16 @@ const handleAddToCart = async (productId, productName) => {
                     onClick={() => handleAddToCart(product.id, product.productName)}
                   >
                     Add to Cart
-                </button>
-
+                  </button>
                   <button
                     className="buy-button"
-                    onClick={() => alert(`Ordered ${product.productName}`)}
+                    onClick={() =>
+                      handleOrderNow(
+                        product.id,
+                        product.productName,
+                        getDiscountedPrice(product.price, product.discount)
+                      )
+                    }
                   >
                     Order Now
                   </button>

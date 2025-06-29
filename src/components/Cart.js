@@ -5,6 +5,7 @@ import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserService from './service/UserService';
+import PaymentService from './service/PaymentService';
 
 function Cart() {
   const [cart, setCart] = useState(null);
@@ -31,35 +32,66 @@ function Cart() {
       setCart(response.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
-      toast.error("❌ Failed to fetch cart.", {
-        style: { marginTop: '60px' } 
-      });
+      toast.error("❌ Failed to fetch cart.", { style: { marginTop: '60px' } });
     }
   };
 
   const handleRemove = async (productId) => {
     try {
       await axios.delete(`http://localhost:8080/user/cart/${productId}`, getAuthConfig());
-      toast.success("🗑️ Item removed from cart!", {
-        style: { marginTop: '60px' } 
-      });
+      toast.success("🗑️ Item removed from cart!", { style: { marginTop: '60px' } });
       fetchCart();
     } catch (error) {
       console.error("Error removing item:", error);
-      toast.error("❌ Failed to remove item.", {
-        style: { marginTop: '60px' } 
-      });
+      toast.error("❌ Failed to remove item.", { style: { marginTop: '60px' } });
     }
   };
 
-  const handleOrderNow = (productName) => {
-    alert(`Ordered ${productName}. You can set quantity on the order page.`);
-    // Future: Call actual order API
+  const handleOrderNow = (productId, productName, price) => {
+    PaymentService.createAndOpenPayment(productName, price, (paymentResp) => {
+      // Call backend to create order
+      axios.post(
+        `http://localhost:8080/user/order/product/${productId}`,
+        null,
+        {
+          params: {
+            razorpayPaymentId: paymentResp.razorpay_payment_id,
+            razorpayOrderId: paymentResp.razorpay_order_id
+          },
+          ...getAuthConfig()
+        }
+      ).then(() => {
+        toast.success("✅ Product order created on server!");
+        fetchCart();
+      }).catch((err) => {
+        console.error("Error saving order to server:", err);
+        toast.error("❌ Failed to save order to server.");
+      });
+    });
   };
 
   const handleBuyAll = () => {
-    alert(`Ordered all items worth ₹${getTotalAmount().toFixed(2)}. Set quantities on order page.`);
-    // Future: Call bulk order API
+    const totalAmount = getTotalAmount();
+    PaymentService.createAndOpenPayment("Cart Purchase", totalAmount, (paymentResp) => {
+      // Call backend to create combined cart order
+      axios.post(
+        `http://localhost:8080/user/order/cart`,
+        null,
+        {
+          params: {
+            razorpayPaymentId: paymentResp.razorpay_payment_id,
+            razorpayOrderId: paymentResp.razorpay_order_id
+          },
+          ...getAuthConfig()
+        }
+      ).then(() => {
+        toast.success("✅ Cart order created on server!");
+        fetchCart();
+      }).catch((err) => {
+        console.error("Error saving cart order to server:", err);
+        toast.error("❌ Failed to save cart order.");
+      });
+    });
   };
 
   const getDiscountedPrice = (price, discount) => {
@@ -136,7 +168,13 @@ function Cart() {
                     </button>
                     <button
                       className="buy-button"
-                      onClick={() => handleOrderNow(item.product.productName)}
+                      onClick={() =>
+                        handleOrderNow(
+                          item.product.id,
+                          item.product.productName,
+                          getDiscountedPrice(item.product.price, item.product.discount || 0)
+                        )
+                      }
                     >
                       Order Now
                     </button>
