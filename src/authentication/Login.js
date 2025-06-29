@@ -25,7 +25,7 @@ function Login() {
                     if (userData.role === "USER") {
                         navigate('/home');
                     } else if (userData.role === "ADMIN") {
-                        navigate('/admin/dashboard');
+                        navigate('/admin/products');
                     } else {
                         navigate('/Organizationhome');
                     }
