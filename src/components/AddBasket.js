@@ -4,6 +4,7 @@ import './AddBasket.css';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserService from './service/UserService'
 
 function AddBasket() {
   const [basketSize, setBasketSize] = useState('Mini');

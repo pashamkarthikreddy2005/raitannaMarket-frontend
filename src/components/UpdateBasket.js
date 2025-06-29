@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './AddBasket.css';  // Reuse same styling
+import './AddBasket.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserService from './service/UserService';
+
 
 function UpdateBasket() {
   const apiBaseUrl = UserService.getBaseUrl();

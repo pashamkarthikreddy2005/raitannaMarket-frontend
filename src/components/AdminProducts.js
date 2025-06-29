@@ -5,6 +5,8 @@ import Footer from './Footer';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import UserService from './service/UserService'
+
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);

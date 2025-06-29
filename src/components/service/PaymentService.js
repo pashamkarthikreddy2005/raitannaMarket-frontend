@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import UserService from './UserService';
 
 const apiBaseUrl = UserService.getBaseUrl();
 

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UserService from './service/UserService'; // adjust path if needed
+import UserService from './service/UserService'
 
 const slides = [
   { image: 'img2.png', text: 'Fresh Veggies Delivered Daily!' },
@@ -14,6 +14,8 @@ const slides = [
 ];
 
 function Home() {
+  const apiBaseUrl = UserService.getBaseUrl();
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [baskets, setBaskets] = useState([]);

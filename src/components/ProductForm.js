@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductForm.css';
 import { toast } from 'react-toastify';
+import UserService from './service/UserService';
 
 const CATEGORY_OPTIONS = ['Vegetables', 'Spices', 'MilkProducts', 'Pickles'];
 
