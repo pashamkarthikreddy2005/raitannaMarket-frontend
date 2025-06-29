@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class UserService {
-    static BASE_URL = process.env.BACKEND_URL;
+    static BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
     static async register(userData) {
         try {
